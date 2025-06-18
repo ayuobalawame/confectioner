@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حلواني معتز - طلبات الحلويات</title>
+    <title>حلواني معتز بوعشرين</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -197,7 +197,6 @@
             background: transparent;
         }
         
-        /* مربع الكمية المختارة */
         .quantity-badge {
             position: absolute;
             top: 10px;
@@ -290,6 +289,11 @@
             background: #fff8e1;
         }
         
+        input[type="tel"] {
+            direction: ltr;
+            text-align: right;
+        }
+        
         input:focus, select:focus {
             border-color: var(--primary);
             outline: none;
@@ -305,39 +309,6 @@
             display: flex;
             align-items: center;
             gap: 5px;
-        }
-        
-        .tables-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .table-btn {
-            background: #fff8e1;
-            border: 2px solid #ffe0b2;
-            border-radius: 10px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .table-btn.selected {
-            background: var(--success);
-            color: white;
-            border-color: var(--success);
-        }
-        
-        .table-btn.occupied {
-            background: #ffcdd2;
-            color: #b71c1c;
-            cursor: not-allowed;
         }
         
         .whatsapp-btn {
@@ -402,10 +373,6 @@
                 flex-direction: column;
             }
             
-            .tables-grid {
-                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-            }
-            
             .delivery-info {
                 flex-direction: column;
                 align-items: center;
@@ -434,7 +401,7 @@
             <div class="logo">
                 <i class="fas fa-birthday-cake"></i>
             </div>
-            <h1>حلواني معتز</h1>
+            <h1>حلواني معتز بوعشرين</h1>
             <p>اشهى الحلويات بأفضل الاسعار</p>
             
             <div class="header-info">
@@ -486,12 +453,12 @@
             </div>
             
             <div class="form-group">
-                <label for="customer-name">اسم العميل</label>
-                <input type="text" id="customer-name" placeholder="الاسم الكامل" required>
+                <label for="customer-phone">رقم الهاتف</label>
+                <input type="tel" id="customer-phone" placeholder="مثال: 0912345678" required>
             </div>
             
             <div class="form-group">
-                <label for="customer-address">عنوان التوصيل</label>
+                <label for="customer-address">عنوان التوصيل (اختياري)</label>
                 <input type="text" id="customer-address" placeholder="العنوان بالتفصيل">
             </div>
             
@@ -509,21 +476,6 @@
                 </div>
             </div>
             
-            <div class="form-group">
-                <label for="reservation">هل ترغب بحجز طاولة؟</label>
-                <select id="reservation">
-                    <option value="no">لا، شكراً</option>
-                    <option value="yes">نعم، أود حجز طاولة</option>
-                </select>
-            </div>
-            
-            <div class="form-group" id="tables-section" style="display: none;">
-                <label>اختر طاولة (15 طاولة متاحة)</label>
-                <div class="tables-grid" id="tables-grid">
-                    <!-- سيتم ملئ الطاولات بواسطة JavaScript -->
-                </div>
-            </div>
-            
             <div class="form-group" style="text-align: center;">
                 <a href="#" class="whatsapp-btn" id="whatsapp-btn">
                     <i class="fab fa-whatsapp"></i> إرسال الطلب عبر واتساب
@@ -534,7 +486,7 @@
     
     <footer>
         <div class="container">
-            <p>حلواني معتز &copy; 2023 | جميع الحقوق محفوظة</p>
+            <p>حلواني معتز بوعشرين &copy; 2023 | جميع الحقوق محفوظة</p>
             <p>المطور أيوب العوامي</p>
         </div>
     </footer>
@@ -571,9 +523,6 @@
         const resetBtn = document.getElementById('reset-btn');
         const orderForm = document.getElementById('order-form');
         const orderSummary = document.getElementById('order-summary');
-        const tablesGrid = document.getElementById('tables-grid');
-        const tablesSection = document.getElementById('tables-section');
-        const reservationSelect = document.getElementById('reservation');
         const whatsappBtn = document.getElementById('whatsapp-btn');
         
         // إنشاء المنتجات في الصفحة
@@ -632,36 +581,6 @@
             });
         }
         
-        // إنشاء الطاولات
-        function renderTables() {
-            tablesGrid.innerHTML = '';
-            
-            for (let i = 1; i <= 15; i++) {
-                const tableBtn = document.createElement('div');
-                tableBtn.className = 'table-btn';
-                tableBtn.textContent = i;
-                tableBtn.setAttribute('data-table', i);
-                
-                // عشوائياً نجعل بعض الطاولات محجوزة
-                if (i % 4 === 0) {
-                    tableBtn.classList.add('occupied');
-                    tableBtn.textContent += ' ✗';
-                }
-                
-                tableBtn.addEventListener('click', function() {
-                    if (this.classList.contains('occupied')) return;
-                    
-                    document.querySelectorAll('.table-btn').forEach(btn => {
-                        btn.classList.remove('selected');
-                    });
-                    
-                    this.classList.add('selected');
-                });
-                
-                tablesGrid.appendChild(tableBtn);
-            }
-        }
-        
         // عرض ملخص الطلب
         function renderOrderSummary() {
             let summaryHTML = '<h3>ملخص الطلب</h3>';
@@ -700,29 +619,26 @@
         
         // إرسال الطلب عبر واتساب
         function sendOrderViaWhatsApp() {
-            const name = document.getElementById('customer-name').value;
+            const phone = document.getElementById('customer-phone').value;
             const address = document.getElementById('customer-address').value;
             const deliveryType = document.querySelector('input[name="delivery-type"]:checked').value;
-            const reservation = document.getElementById('reservation').value;
-            const selectedTable = document.querySelector('.table-btn.selected');
             
-            if (!name) {
-                alert('الرجاء إدخال اسم العميل');
+            if (!phone) {
+                alert('الرجاء إدخال رقم الهاتف');
                 return;
             }
             
-            let message = `*طلب جديد - حلواني معتز*\n\n`;
-            message += `*اسم العميل:* ${name}\n`;
+            if (phone.length < 8) {
+                alert('رقم الهاتف يجب أن يكون 8 خانات على الأقل');
+                return;
+            }
+            
+            let message = `*طلب جديد - حلواني معتز بوعشرين*\n\n`;
+            message += `*رقم الهاتف:* ${phone}\n`;
             message += `*نوع الطلب:* ${deliveryType === 'delivery' ? 'توصيل' : 'استلام من المحل'}\n`;
             
             if (deliveryType === 'delivery' && address) {
                 message += `*عنوان التوصيل:* ${address}\n`;
-            }
-            
-            if (reservation === 'yes' && selectedTable) {
-                message += `*حجز طاولة:* الطاولة رقم ${selectedTable.getAttribute('data-table')}\n`;
-            } else if (reservation === 'yes') {
-                message += `*حجز طاولة:* لم يتم اختيار طاولة\n`;
             }
             
             message += `\n*تفاصيل الطلب:*\n`;
@@ -738,20 +654,25 @@
             });
             
             message += `\n*المجموع الكلي:* ${total} ل.س\n\n`;
-            message += `_تم إرسال هذا الطلب من موقع حلواني معتز الإلكتروني_`;
+            message += `_تم إرسال هذا الطلب من موقع حلواني معتز بوعشرين الإلكتروني_`;
             
-            const phoneNumber = '218921835737';
+            const phoneNumber = '218921835737'; // رقم الواتساب الافتراضي مع كود الدولة
             const encodedMessage = encodeURIComponent(message);
-            whatsappBtn.href = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
             
-            // فتح الرابط في نافذة جديدة
-            window.open(whatsappBtn.href, '_blank');
+            // إنشاء رابط مؤقت ونقره برمجياً
+            const link = document.createElement('a');
+            link.href = whatsappUrl;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
         
         // تهيئة الصفحة عند التحميل
         document.addEventListener('DOMContentLoaded', () => {
             renderProducts();
-            renderTables();
             renderOrderSummary();
             
             // تحديث ملخص الطلب عند تغيير الكميات
@@ -780,15 +701,6 @@
                 orderForm.style.display = 'none';
             });
             
-            // عرض/إخفاء اختيار الطاولات
-            reservationSelect.addEventListener('change', () => {
-                if (reservationSelect.value === 'yes') {
-                    tablesSection.style.display = 'block';
-                } else {
-                    tablesSection.style.display = 'none';
-                }
-            });
-            
             // إرسال الطلب عبر واتساب
             whatsappBtn.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -798,3 +710,4 @@
     </script>
 </body>
 </html>
+     
