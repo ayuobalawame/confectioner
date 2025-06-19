@@ -492,29 +492,33 @@
     </footer>
 
     <script>
-        // بيانات المنتجات
+        // بيانات المنتجات المعدلة
         const products = [
             { id: 1, name: "بكلاوة فستق", price: 140 },
             { id: 2, name: "بكلاوة لوز", price: 60 },
             { id: 3, name: "كنافة", price: 40 },
             { id: 4, name: "النواشف", price: 50 },
-            { id: 5, name: "باسطي (صغير)", price: 2 },
-            { id: 6, name: "باسطي (متوسط)", price: 4 },
-            { id: 7, name: "باسطي (كبير)", price: 5 },
+            { id: 5, name: "باسطي", price: 2 },
+            { id: 6, name: "باسطي", price: 4 },
+            { id: 7, name: "باسطي موز كيك", price: 4 },
             { id: 8, name: "ملفي", price: 2 },
             { id: 9, name: "كلير", price: 2 },
             { id: 10, name: "قشطوطة", price: 15 },
             { id: 11, name: "محلاي فستق", price: 7 },
             { id: 12, name: "محلاي لوز", price: 5 },
-            { id: 13, name: "بريوش كيكة", price: 1 },
+            { id: 13, name: "بريوش", price: 1 },
             { id: 14, name: "صندوق الكيكة", price: 47 },
-            { id: 15, name: "عصير (لتر)", price: 15 },
-            { id: 16, name: "عصير (علبة)", price: 5 },
-            { id: 17, name: "بوريك", price: 1.5 },
-            { id: 18, name: "أصابع الباشا", price: 2.5 },
-            { id: 19, name: "بيتزا", price: 2.5 },
-            { id: 20, name: "يوفكا", price: 2.5 },
-            { id: 21, name: "بطاطة أمبطنة", price: 2.5 }
+            { id: 15, name: "عصير منقة ليترا", price: 15 },
+            { id: 16, name: "عصير فراوله ليترا", price: 15 },
+            { id: 17, name: "عصير جوافة ليترا", price: 15 },
+            { id: 18, name: "عصير منقه علبه", price: 5 },
+            { id: 19, name: "عصير فراوله علبه", price: 5 },
+            { id: 20, name: "عصير جوافه علبه", price: 5 },
+            { id: 21, name: "بوريك", price: 1.5 },
+            { id: 22, name: "أصابع الباشا", price: 2.5 },
+            { id: 23, name: "بيتزا", price: 2.5 },
+            { id: 24, name: "يوفكا", price: 2.5 },
+            { id: 25, name: "بطاطة أمبطنة", price: 2.5 }
         ];
 
         // عناصر DOM
@@ -536,7 +540,7 @@
                 productCard.innerHTML = `
                     <div class="product-info">
                         <h3 class="product-name">${product.name}</h3>
-                        <div class="product-price">${product.price} ل.س</div>
+                        <div class="product-price">${product.price} د.ل</div>
                         <div class="quantity-controls">
                             <button class="quantity-btn minus" data-id="${product.id}">
                                 <i class="fas fa-minus"></i>
@@ -595,8 +599,8 @@
                     total += productTotal;
                     summaryHTML += `
                         <div class="order-item">
-                            <span>${product.name} (${qty} × ${product.price})</span>
-                            <span>${productTotal} ل.س</span>
+                            <span>${product.name} (${qty} × ${product.price} د.ل)</span>
+                            <span>${productTotal} د.ل</span>
                         </div>
                     `;
                 }
@@ -608,7 +612,7 @@
             } else {
                 summaryHTML += `
                     <div class="order-total">
-                        المجموع: ${total} ل.س
+                        المجموع: ${total} د.ل
                     </div>
                 `;
                 confirmOrderBtn.disabled = false;
@@ -649,11 +653,11 @@
                 if (qty > 0) {
                     const productTotal = qty * product.price;
                     total += productTotal;
-                    message += `- ${product.name}: ${qty} × ${product.price} = ${productTotal} ل.س\n`;
+                    message += `- ${product.name}: ${qty} × ${product.price} = ${productTotal} د.ل\n`;
                 }
             });
             
-            message += `\n*المجموع الكلي:* ${total} ل.س\n\n`;
+            message += `\n*المجموع الكلي:* ${total} د.ل\n\n`;
             message += `_تم إرسال هذا الطلب من موقع حلواني معتز بوعشرين الإلكتروني_`;
             
             const phoneNumber = '218921835737'; // رقم الواتساب الافتراضي مع كود الدولة
@@ -710,4 +714,3 @@
     </script>
 </body>
 </html>
-     
